@@ -5,6 +5,12 @@ def loe_failist(f):
         mas.append(rida.strip())
     fail.close()
     return mas
+def list_failisse(f,list_):
+    fail=open(f,'w',encoding="utf-8-sig")
+    for k in list_:
+        fail.write(k+"\n")
+    fail.close()
+    return list_
 def salvesta_failisse(f,text):    
     fail=open(f,'a',encoding="utf-8-sig")
     fail.write(text+"\n")
@@ -30,6 +36,31 @@ def tolkimine(rus_list,est_list):
         print(f"{slovo.upper()} отсутствует в словаре")
         v=input("Желаете добавить слово в словарь?")
         if v.lower()=="да": uued_sonad()
+def parandus(rus_list,est_list):
+    viga=input("Введите слово с ошибкой: ")
+    if viga in rus_list:
+        ind=rus_list.index(viga)#index
+        print(f"Будет исправлена пара слов{viga} - {est_list[ind]}")
+        rus_list.pop(ind)
+        est_list.pop(ind)
+        rus_list=list_failisse("rus.txt",rus_list)
+        est_list=list_failisse("est.txt",est_list)
+        uued_sonad()
+        
+    elif viga in est_list:
+        ind=est_list.index(viga)
+        print(f"Будет исправлена пара слов{viga} - {rus_list[ind]}")
+        rus_list.pop(ind)
+        est_list.pop(ind)
+        rus_list=list_failisse("rus.txt",rus_list)
+        est_list=list_failisse("est.txt",est_list)
+        uued_sonad()
+    else:
+        print(f"{viga.upper()} отсутствует в словаре")
+    rus_list=loe_failist("rus.txt")
+    est_list=loe_failist("est.txt")
+    return rus_list,est_list
+
 rus_list=loe_failist("rus.txt")
 est_list=loe_failist("est.txt")
 print(rus_list)
@@ -41,5 +72,8 @@ while True:
     elif v=="2":
         rus_list, est_list=uued_sonad()
     elif v=="3":
+        print(rus_list,est_list)
+        rus_list,est_list=parandus(rus_list,est_list)
+        print(rus_list,est_list)
 
 

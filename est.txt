@@ -1,5 +1,6 @@
 ﻿esimene
-teine
 kolmas
 kool
 programm
+Teine
+maja
